@@ -7,23 +7,39 @@ from eralchemy2 import render_er
 
 Base = declarative_base()
 
-class Person(Base):
-    __tablename__ = 'person'
-    # Here we define columns for the table person
-    # Notice that each column is also a normal Python instance attribute.
-    id = Column(Integer, primary_key=True)
+class Planets(Base):
+    __tablename__ = "Planets"
     name = Column(String(250), nullable=False)
-
-class Address(Base):
-    __tablename__ = 'address'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    street_name = Column(String(250))
-    street_number = Column(String(250))
-    post_code = Column(String(250), nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    climate = Column(String(250))
+    population = Column(Integer)
+    orbital_period = Column(String(250)) 
+    diameter = Column(Integer)
+
+class People(Base):
+    __tablename__ = "People"
+    name = Column(String(250), nullable=False) 
+    id = Column(Integer, primary_key=True) 
+    gender = Column(String(250))
+    hair_color = Column(String(250))
+    eye_color = Column(String(250))
+    birth_year = Column(Integer)
+    height = Column(Integer)
+    mass = Column(Integer)
+    homeworld = Column(String(250))
+    planets_id = Column(Integer, ForeignKey('planets.id'))
+    planets = relationship(Planets)
+
+class Starships(Base):
+    __tablename__ = 'Starships'
+    name_model = Column(String(250), nullable=False)
+    id = Column(Integer, primary_key=True)
+    passengers = Column(Integer)
+    pilots_id = Column(String(250), ForeignKey("people.id"))
+    people = relationship(People)
+    manufacturer_id = Column(String(250), ForeignKey("planets.id"))
+    planets = relationship(Planets)
+
 
     def to_dict(self):
         return {}
