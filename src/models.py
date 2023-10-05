@@ -26,8 +26,7 @@ class People(Base):
     birth_year = Column(Integer)
     height = Column(Integer)
     mass = Column(Integer)
-    homeworld = Column(String(250))
-    planets_id = Column(Integer, ForeignKey('planets.id'))
+    homeworld_id = Column(String(250),ForeignKey('planets.id'))
     planets = relationship(Planets)
 
 class Starships(Base):
