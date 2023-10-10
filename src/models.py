@@ -7,7 +7,7 @@ from eralchemy2 import render_er
 
 Base = declarative_base()
 
-class Planets(Base):
+class planets(Base):
     __tablename__ = "Planets"
     name = Column(String(250), nullable=False)
     id = Column(Integer, primary_key=True)
@@ -16,7 +16,7 @@ class Planets(Base):
     orbital_period = Column(String(250)) 
     diameter = Column(Integer)
 
-class People(Base):
+class people(Base):
     __tablename__ = "People"
     name = Column(String(250), nullable=False) 
     id = Column(Integer, primary_key=True) 
@@ -26,18 +26,18 @@ class People(Base):
     birth_year = Column(Integer)
     height = Column(Integer)
     mass = Column(Integer)
-    homeworld_id = Column(String(250),ForeignKey('planets.id'))
-    planets = relationship(Planets)
+    homeworld_id = Column(String(250),ForeignKey('Planets.id'))
+    planets = relationship(planets)
 
-class Starships(Base):
+class starships(Base):
     __tablename__ = 'Starships'
     name_model = Column(String(250), nullable=False)
     id = Column(Integer, primary_key=True)
     passengers = Column(Integer)
-    pilots_id = Column(String(250), ForeignKey("people.id"))
-    people = relationship(People)
-    manufacturer_id = Column(String(250), ForeignKey("planets.id"))
-    planets = relationship(Planets)
+    pilots_id = Column(Integer, ForeignKey("People.id"))
+    people = relationship(people)
+    manufacturer_id = Column(String(250), ForeignKey("Planets.id"))
+    planets = relationship(planets)
 
 
     def to_dict(self):
